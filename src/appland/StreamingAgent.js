@@ -1,1 +1,1 @@
-// export { StreamingAgent as default } from "streaming-view-sdk";
+export { StreamingAgent as default } from "streaming-view-sdk";

@@ -1,1 +1,1 @@
-// export { StreamingView as default } from "streaming-view-sdk";
+export { StreamingView as default } from "streaming-view-sdk";

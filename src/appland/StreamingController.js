@@ -1,1 +1,1 @@
-// export { StreamingController as default } from "streaming-view-sdk";
+export { StreamingController as default } from "streaming-view-sdk";
