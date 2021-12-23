@@ -14,7 +14,10 @@ const StartScreen = (props) => {
     );
   };
   const onErrorGetGamePreload = (id) => {
-    document.getElementById(id)?.setAttribute("src", GamePreloadPlaceholder);
+    const thisImage = document.getElementById(id);
+    if (thisImage) {
+      thisImage.setAttribute("src", GamePreloadPlaceholder);
+    }
   };
 
   return (

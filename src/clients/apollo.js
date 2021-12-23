@@ -13,7 +13,6 @@ export const getInstance = () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const accessToken = urlParams.get("accessToken");
-  console.log("accessToken", accessToken);
   const authLink = setContext(async (_, { headers }) => {
     return {
       headers: {

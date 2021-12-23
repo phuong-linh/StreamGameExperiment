@@ -16,6 +16,7 @@ const GameSession = () => {
   const [gameAndMoment, setGameAndMoment] = useState(null);
 
   const onStreamEvent = async (event, payload) => {
+    console.log("event", event);
     if (event === StreamingController.EVENT_STREAM_READY) {
       setStreamReady(true);
     }
@@ -38,22 +39,30 @@ const GameSession = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isStreamReady ? (
-    <StreamingView
-      // key={gameSession?.id}
-      // userClickedPlayAt={parseInt(startAt, 10)}
-      apiEndpoint={STREAM_ENDPOINT}
-      edgeNodeId={edgeNodeId}
-      userId={userId}
-      enableControl={true}
-      enableDebug={false}
-      enableFullScreen={true}
-      muted={false}
-      volume={1}
-      onEvent={(evt, payload) => onStreamEvent(evt, payload)}
-    ></StreamingView>
-  ) : (
-    <StartScreen gameAndMoment={gameAndMoment} isStreamReady={isStreamReady} />
+  return (
+    <>
+      {!isStreamReady && (
+        <StartScreen
+          gameAndMoment={gameAndMoment}
+          isStreamReady={isStreamReady}
+        />
+      )}
+      {edgeNodeId && (
+        <StreamingView
+          // key={gameSession?.id}
+          // userClickedPlayAt={parseInt(startAt, 10)}
+          apiEndpoint={STREAM_ENDPOINT}
+          edgeNodeId={edgeNodeId}
+          userId={userId}
+          enableControl={true}
+          enableDebug={false}
+          enableFullScreen={true}
+          muted={false}
+          volume={1}
+          onEvent={(evt, payload) => onStreamEvent(evt, payload)}
+        ></StreamingView>
+      )}
+    </>
   );
 };
 export default GameSession;
