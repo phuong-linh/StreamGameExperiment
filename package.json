@@ -3,16 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "3.4.17",
+    "@mapbox/node-pre-gyp": "^1.0.8",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "graphql": "^15.5.3",
+    "graphql-tag": "^2.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
+    "svgo": "^2.8.0",
     "web-vitals": "^2.1.2",
-    "@apollo/client": "3.4.17",
-    "graphql-tag": "^2.12.5",
-    "graphql": "^15.5.3",
     "streaming-view-sdk": "git+https://appland-node@bitbucket.org/appland/streaming-view-sdk.git#20211116-2"
   },
   "scripts": {
