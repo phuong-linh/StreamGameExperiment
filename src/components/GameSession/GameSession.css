@@ -1,0 +1,7 @@
+.gameSessionRoot {
+  position: relative;
+}
+.gameSessionRoot > div:nth-child(2) {
+  position: relative;
+  z-index: 50;
+}

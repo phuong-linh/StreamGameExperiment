@@ -1,3 +1,11 @@
+.startScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 60;
+}
 .top {
   display: flex;
   flex-direction: column;

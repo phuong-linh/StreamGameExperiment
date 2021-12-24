@@ -4,7 +4,7 @@ import GamePreloadPlaceholder from "./assets/GamePreloadPlaceholder.png";
 import Loading from "./assets/Loading.svg";
 
 const StartScreen = (props) => {
-  const { gameAndMoment, isStreamReady = false, setPlayAt } = props;
+  const { gameAndMoment, streamReadyCallback, setPlayAt } = props;
 
   const getGamePreload = (gameId) => {
     return (
@@ -20,8 +20,17 @@ const StartScreen = (props) => {
     }
   };
 
+  const onClickPlay = () => {
+    try {
+      streamReadyCallback.payload();
+    } catch (e) {
+      console.error(`Fail to run ready call back functions`, e);
+    }
+    setPlayAt(Date.now());
+  };
+
   return (
-    <>
+    <div className="startScreen">
       <div className="top">
         <img
           id={gameAndMoment?.game.id}
@@ -34,15 +43,15 @@ const StartScreen = (props) => {
       </div>
       <div className="bottom">
         <p>{gameAndMoment?.moment.title}</p>
-        <img src={Loading} alt="" />
+        {!streamReadyCallback && <img src={Loading} alt="" />}
         <button
-          className={!isStreamReady && "disableBtn"}
-          onClick={() => setPlayAt(Date.now())}
+          className={!streamReadyCallback ? "disableBtn" : ""}
+          onClick={onClickPlay}
         >
           Start Now
         </button>
       </div>
-    </>
+    </div>
   );
 };
 export default StartScreen;
