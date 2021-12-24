@@ -4,7 +4,7 @@ import GamePreloadPlaceholder from "./assets/GamePreloadPlaceholder.png";
 import Loading from "./assets/Loading.svg";
 
 const StartScreen = (props) => {
-  const { gameAndMoment, isStreamReady = false } = props;
+  const { gameAndMoment, isStreamReady = false, setPlayAt } = props;
 
   const getGamePreload = (gameId) => {
     return (
@@ -35,7 +35,12 @@ const StartScreen = (props) => {
       <div className="bottom">
         <p>{gameAndMoment?.moment.title}</p>
         <img src={Loading} alt="" />
-        <button className={!isStreamReady && "disableBtn"}>Start Now</button>
+        <button
+          className={!isStreamReady && "disableBtn"}
+          onClick={() => setPlayAt(Date.now())}
+        >
+          Start Now
+        </button>
       </div>
     </>
   );

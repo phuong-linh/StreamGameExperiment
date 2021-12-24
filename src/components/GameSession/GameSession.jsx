@@ -11,8 +11,9 @@ const GameSession = () => {
   const momentId = urlParams.get("momentId");
   const userId = urlParams.get("userId");
 
-  const [edgeNodeId, setEdgeNodeId] = useState(null);
+  const [sessionData, setSessionData] = useState(null);
   const [isStreamReady, setStreamReady] = useState(false);
+  const [playAt, setPlayAt] = useState(null);
   const [gameAndMoment, setGameAndMoment] = useState(null);
 
   const onStreamEvent = async (event, payload) => {
@@ -26,12 +27,14 @@ const GameSession = () => {
     const gameAndMoment = await Models.getGameAndMomentData(gameId, momentId);
     setGameAndMoment(gameAndMoment);
     const deviceInfo = await Models.getDeviceInfo();
-    const edgeNodeId = await Models.createStream({
-      gameId,
-      snapshotId: gameAndMoment.moment.snapshotId,
+    const sessionData = await Models.playMoment({
       device: { info: deviceInfo },
+      gameId,
+      momentId,
+      sessionType: "CASUAL",
     });
-    setEdgeNodeId(edgeNodeId);
+    console.log("sessionData", sessionData);
+    setSessionData(sessionData);
   };
 
   useEffect(() => {
@@ -41,18 +44,19 @@ const GameSession = () => {
 
   return (
     <>
-      {!isStreamReady && (
+      {!playAt && (
         <StartScreen
           gameAndMoment={gameAndMoment}
           isStreamReady={isStreamReady}
+          setPlayAt={setPlayAt}
         />
       )}
-      {edgeNodeId && (
+      {sessionData && (
         <StreamingView
-          // key={gameSession?.id}
-          // userClickedPlayAt={parseInt(startAt, 10)}
+          key={sessionData.gameSessionId}
+          userClickedPlayAt={playAt}
           apiEndpoint={STREAM_ENDPOINT}
-          edgeNodeId={edgeNodeId}
+          edgeNodeId={sessionData.edgeNodeId}
           userId={userId}
           enableControl={true}
           enableDebug={false}

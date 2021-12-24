@@ -1,4 +1,4 @@
-import { createStream } from "../apollo/mutation";
+import { playSoloMoment } from "../apollo/mutation";
 import apollo from "../clients/apollo";
 import StreamingController from "../appland/StreamingController";
 import { STREAM_ENDPOINT } from "../constants";
@@ -18,14 +18,6 @@ export class Models {
     return JSON.stringify(res);
   };
 
-  static createStream = async (createStreamInput) => {
-    const response = await apolloClient.mutate({
-      mutation: createStream,
-      variables: createStreamInput,
-    });
-    return response.data.createStream.edgeNodeId;
-  };
-
   static getGameAndMomentData = async (gameId, momentId) => {
     const response = await apolloClient.query({
       query: getGameAndMomentData,
@@ -35,5 +27,13 @@ export class Models {
       },
     });
     return { game: response.data.getGame, moment: response.data.fetchMoment };
+  };
+
+  static playMoment = async (params) => {
+    const response = await apolloClient.mutate({
+      mutation: playSoloMoment,
+      variables: { playSoloMomentInput: params },
+    });
+    return response.data.playSoloMoment;
   };
 }
