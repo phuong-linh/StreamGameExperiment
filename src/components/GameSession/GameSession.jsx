@@ -49,6 +49,7 @@ const GameSession = () => {
           gameAndMoment={gameAndMoment}
           streamReadyCallback={streamReadyCallback}
           setPlayAt={setPlayAt}
+          edgeNodeId={sessionData?.edgeNodeId}
         />
       )}
       {sessionData && (

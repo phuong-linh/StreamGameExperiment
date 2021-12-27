@@ -2,9 +2,11 @@ import React from "react";
 import "./StartScreen.css";
 import GamePreloadPlaceholder from "./assets/GamePreloadPlaceholder.png";
 import Loading from "./assets/Loading.svg";
+import { STREAM_ENDPOINT } from "../../constants";
+import StreamingController from "../../appland/StreamingController";
 
 const StartScreen = (props) => {
-  const { gameAndMoment, streamReadyCallback, setPlayAt } = props;
+  const { gameAndMoment, streamReadyCallback, setPlayAt, edgeNodeId } = props;
 
   const getGamePreload = (gameId) => {
     return (
@@ -20,8 +22,13 @@ const StartScreen = (props) => {
     }
   };
 
-  const onClickPlay = () => {
+  const onClickPlay = async () => {
     try {
+      const streamController = await StreamingController({
+        apiEndpoint: STREAM_ENDPOINT,
+        edgeNodeId: edgeNodeId,
+      });
+      streamController.resume();
       streamReadyCallback.payload();
     } catch (e) {
       console.error(`Fail to run ready call back functions`, e);
